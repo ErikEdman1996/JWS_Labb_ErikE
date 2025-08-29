@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v2")
 public class BlogController
@@ -32,9 +34,11 @@ public class BlogController
     }
 
     @GetMapping("/posts")
-    public ResponseEntity<String> getPosts()
+    public ResponseEntity<List<Post>> getPosts(JwtAuthenticationToken token)
     {
-        String s = "Test string...";
-        return ResponseEntity.ok(s);
+        String keycloakSub = token.getToken().getSubject();
+        List<Post> posts = postService.getAllPostsByKeycloakSub(keycloakSub);
+
+        return ResponseEntity.ok(posts);
     }
 }

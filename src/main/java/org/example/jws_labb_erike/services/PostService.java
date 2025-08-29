@@ -29,4 +29,14 @@ public class PostService implements PostServiceInterface
     {
         return List.of();
     }
+
+    @Override
+    public List<Post> getAllPostsByKeycloakSub(String keycloakSub)
+    {
+        //TODO: Kolla om användaren finns
+
+        List<Post> posts = postRepository.findByKeycloakSub(keycloakSub);
+
+        return posts;
+    }
 }

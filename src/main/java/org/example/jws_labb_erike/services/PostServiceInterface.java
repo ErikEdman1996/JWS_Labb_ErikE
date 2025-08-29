@@ -8,4 +8,5 @@ public interface PostServiceInterface
 {
     Post addPost(Post post);
     List<Post> getAllPosts();
+    List<Post> getAllPostsByKeycloakSub(String keycloakSub);
 }
