@@ -10,12 +10,12 @@ public class Post
     private Long id;
 
     @Column(nullable = false, updatable = false)
-    private String keycloakSub;
+    private String email;
 
     @Column(length = 40, nullable = false)
     private String title;
 
-    @Column
+    @Column()
     private String content;
 
     public Post()
@@ -23,9 +23,9 @@ public class Post
 
     }
 
-    public Post(Long id, String keycloakSub, String title, String content) {
+    public Post(Long id, String email, String title, String content) {
         this.id = id;
-        this.keycloakSub = keycloakSub;
+        this.email = email;
         this.title = title;
         this.content = content;
     }
@@ -54,11 +54,13 @@ public class Post
         this.content = content;
     }
 
-    public String getKeycloakSub() {
-        return keycloakSub;
+    public String getEmail()
+    {
+        return email;
     }
 
-    public void setKeycloakSub(String keycloakSub) {
-        this.keycloakSub = keycloakSub;
+    public void setEmail(String email)
+    {
+        this.email = email;
     }
 }

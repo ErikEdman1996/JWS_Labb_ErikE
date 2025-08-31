@@ -39,11 +39,11 @@ public class PostService implements PostServiceInterface
     }
 
     @Override
-    public List<Post> getAllPostsByKeycloakSub(String keycloakSub)
+    public List<Post> getAllPostsByEmail(String email)
     {
         //TODO: Kolla om användaren finns
 
-        List<Post> posts = postRepository.findByKeycloakSub(keycloakSub);
+        List<Post> posts = postRepository.findByEmail(email);
 
         return posts;
     }

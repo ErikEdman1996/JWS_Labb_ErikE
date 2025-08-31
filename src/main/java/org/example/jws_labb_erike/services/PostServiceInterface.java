@@ -9,6 +9,6 @@ public interface PostServiceInterface
     Post addPost(Post post);
     Post getPostById(Long id);
     List<Post> getAllPosts();
-    List<Post> getAllPostsByKeycloakSub(String keycloakSub);
+    List<Post> getAllPostsByEmail(String email);
     Long getPostCount();
 }

@@ -28,9 +28,13 @@ public class BlogController
     public ResponseEntity<Post> addNewPost(@RequestBody Post post, JwtAuthenticationToken token)
     {
         String keycloakSub = token.getToken().getSubject();
-        post.setKeycloakSub(keycloakSub);
+        String email = token.getToken().getClaim("email").toString();
+
+        post.setEmail(email);
 
         Post createdPost = postService.addPost(post);
+
+        System.out.println("The current keycloak sub is: " + keycloakSub);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPost);
     }
@@ -38,8 +42,8 @@ public class BlogController
     @GetMapping("/posts")
     public ResponseEntity<List<Post>> getPosts(JwtAuthenticationToken token)
     {
-        String keycloakSub = token.getToken().getSubject();
-        List<Post> posts = postService.getAllPostsByKeycloakSub(keycloakSub);
+        String email = token.getToken().getClaim("email").toString();
+        List<Post> posts = postService.getAllPostsByEmail(email);
 
         return ResponseEntity.ok(posts);
     }
