@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostService implements PostServiceInterface
@@ -25,6 +26,13 @@ public class PostService implements PostServiceInterface
     }
 
     @Override
+    public Post getPostById(Long id)
+    {
+        Optional<Post> post = postRepository.findById(id);
+        return post.orElseGet(() -> postRepository.findById(id).get());
+    }
+
+    @Override
     public List<Post> getAllPosts()
     {
         return List.of();
@@ -38,5 +46,11 @@ public class PostService implements PostServiceInterface
         List<Post> posts = postRepository.findByKeycloakSub(keycloakSub);
 
         return posts;
+    }
+
+    @Override
+    public Long getPostCount()
+    {
+        return postRepository.count();
     }
 }

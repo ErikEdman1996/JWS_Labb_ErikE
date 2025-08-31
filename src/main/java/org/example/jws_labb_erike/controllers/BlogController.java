@@ -22,6 +22,8 @@ public class BlogController
         this.postService = postService;
     }
 
+    /*User endpoints*/
+
     @PostMapping("/newpost")
     public ResponseEntity<Post> addNewPost(@RequestBody Post post, JwtAuthenticationToken token)
     {
@@ -40,5 +42,22 @@ public class BlogController
         List<Post> posts = postService.getAllPostsByKeycloakSub(keycloakSub);
 
         return ResponseEntity.ok(posts);
+    }
+
+    @GetMapping("/post/{id}")
+    public ResponseEntity<Post> getPostById(@PathVariable Long id)
+    {
+        Post post = postService.getPostById(id);
+        return ResponseEntity.ok(post);
+    }
+
+    /*Admin endpoints*/
+    @GetMapping("/count")
+    public ResponseEntity<String> getPostCount()
+    {
+        Long count = postService.getPostCount();
+        String response = "The post count is: "+ count;
+
+        return ResponseEntity.ok(response);
     }
 }

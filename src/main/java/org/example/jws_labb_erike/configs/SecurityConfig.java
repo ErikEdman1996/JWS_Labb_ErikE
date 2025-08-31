@@ -28,8 +28,10 @@ public class SecurityConfig
                 .authorizeHttpRequests(auth->
                         auth
                                 .requestMatchers("/h2-console/**").permitAll()
+                                .requestMatchers("/api/v2/count").hasRole("admin")
                                 .anyRequest().authenticated()
                 )
+                //Krävs för att se h2-console
                 .headers(headers->headers.frameOptions(frame->frame.sameOrigin()))
                 .oauth2ResourceServer(oauth2->oauth2.
                         jwt(jwt->jwt.jwtAuthenticationConverter(jwtAuthConverter))
