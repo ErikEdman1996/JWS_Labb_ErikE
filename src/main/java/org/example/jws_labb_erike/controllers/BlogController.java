@@ -40,19 +40,34 @@ public class BlogController
     }
 
     @GetMapping("/posts")
-    public ResponseEntity<List<Post>> getPosts(JwtAuthenticationToken token)
+    public ResponseEntity<List<Post>> getAllPost()
     {
-        String email = token.getToken().getClaim("email").toString();
-        List<Post> posts = postService.getAllPostsByEmail(email);
-
-        return ResponseEntity.ok(posts);
+        return ResponseEntity.ok(postService.getAllPosts());
     }
 
     @GetMapping("/post/{id}")
     public ResponseEntity<Post> getPostById(@PathVariable Long id)
     {
         Post post = postService.getPostById(id);
+
         return ResponseEntity.ok(post);
+    }
+
+    @PutMapping("/updatepost")
+    public ResponseEntity<Post> updatePost(@RequestBody Post post, JwtAuthenticationToken token)
+    {
+        String email = token.getToken().getClaim("email").toString();
+
+        return ResponseEntity.ok(postService.updatePost(post, email));
+    }
+
+    @DeleteMapping("/deletepost/{id}")
+    public ResponseEntity<?> deletePost(@PathVariable Long id, JwtAuthenticationToken token)
+    {
+        String email = token.getToken().getClaim("email").toString();
+        postService.deletePost(id, email);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     /*Admin endpoints*/

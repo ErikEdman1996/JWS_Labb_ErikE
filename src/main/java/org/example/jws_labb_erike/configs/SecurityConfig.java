@@ -29,6 +29,9 @@ public class SecurityConfig
                         auth
                                 .requestMatchers("/h2-console/**").permitAll()
                                 .requestMatchers("/api/v2/count").hasRole("admin")
+                                .requestMatchers("/api/v2/newpost").hasRole("user")
+                                .requestMatchers("/api/v2/updatepost").hasRole("user")
+                                .requestMatchers("/api/v2/deletepost/**").hasAnyRole("admin", "user")
                                 .anyRequest().authenticated()
                 )
                 //Krävs för att se h2-console
