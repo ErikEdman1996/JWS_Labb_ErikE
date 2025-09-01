@@ -1,6 +1,7 @@
 package org.example.jws_labb_erike.services;
 
 import org.example.jws_labb_erike.entities.Post;
+import org.example.jws_labb_erike.exceptions.InvalidPostException;
 import org.example.jws_labb_erike.exceptions.ResourceNotFoundException;
 import org.example.jws_labb_erike.exceptions.UnauthorizedActionException;
 import org.example.jws_labb_erike.repositories.PostRepository;
@@ -24,6 +25,11 @@ public class PostService implements PostServiceInterface
     @Override
     public Post addPost(Post post)
     {
+        if(post.getContent() == null || post.getContent().length() < 3)
+        {
+            throw new InvalidPostException("Content must be at least 3 characters long");
+        }
+
         return postRepository.save(post);
     }
 

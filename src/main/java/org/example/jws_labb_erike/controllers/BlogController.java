@@ -22,8 +22,22 @@ public class BlogController
         this.postService = postService;
     }
 
-    /*User endpoints*/
+    /*Authenticated endpoints*/
+    @GetMapping("/posts")
+    public ResponseEntity<List<Post>> getAllPost()
+    {
+        return ResponseEntity.ok(postService.getAllPosts());
+    }
 
+    @GetMapping("/post/{id}")
+    public ResponseEntity<Post> getPostById(@PathVariable Long id)
+    {
+        Post post = postService.getPostById(id);
+
+        return ResponseEntity.ok(post);
+    }
+
+    /*User endpoints*/
     @PostMapping("/newpost")
     public ResponseEntity<Post> addNewPost(@RequestBody Post post, JwtAuthenticationToken token)
     {
@@ -37,20 +51,6 @@ public class BlogController
         System.out.println("The current keycloak sub is: " + keycloakSub);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPost);
-    }
-
-    @GetMapping("/posts")
-    public ResponseEntity<List<Post>> getAllPost()
-    {
-        return ResponseEntity.ok(postService.getAllPosts());
-    }
-
-    @GetMapping("/post/{id}")
-    public ResponseEntity<Post> getPostById(@PathVariable Long id)
-    {
-        Post post = postService.getPostById(id);
-
-        return ResponseEntity.ok(post);
     }
 
     @PutMapping("/updatepost")
