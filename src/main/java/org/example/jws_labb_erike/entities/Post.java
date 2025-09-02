@@ -15,7 +15,7 @@ public class Post
     @Column(nullable = false, updatable = false)
     private String email;
 
-    @Column(length = 40, nullable = false)
+    @Column(length = 60, nullable = false)
     private String title;
 
     @Column()

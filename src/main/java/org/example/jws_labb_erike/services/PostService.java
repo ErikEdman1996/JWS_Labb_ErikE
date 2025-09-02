@@ -8,7 +8,6 @@ import org.example.jws_labb_erike.repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +25,10 @@ public class PostService implements PostServiceInterface
     @Override
     public Post addPost(Post post)
     {
-        if(post.getContent() == null || post.getContent().length() < 3)
+        if(post.getContent() == null || post.getContent().length() < 3 ||
+           post.getTitle()  == null || post.getTitle().length() < 3)
         {
-            throw new InvalidPostException("Content must be at least 3 characters long");
+            throw new InvalidPostException("Invalid post title or content");
         }
 
         return postRepository.save(post);
